@@ -30,20 +30,15 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
      train/
          images/
          labels/
-             ...
-         labels.cache
      valid/
          images/
          labels/
-             ...
-         labels.cache
-     [best.pt](http://_vscodecontentref_/0)
-     [data.yaml](http://_vscodecontentref_/1)
-     [execute.py](http://_vscodecontentref_/2)
-     [README.dataset.txt](http://_vscodecontentref_/3)
-     [README.md](http://_vscodecontentref_/4)
-     [README.roboflow.txt](http://_vscodecontentref_/5)
-     [tfliteconvert.py](http://_vscodecontentref_/6)
+     [data.yaml]
+     [execute.py]
+     [README.dataset.txt]
+     [README.md]
+     [README.roboflow.txt]
+     [tfliteconvert.py]
      ```
 
 3. **Check and Change the Value of Epochs**:
