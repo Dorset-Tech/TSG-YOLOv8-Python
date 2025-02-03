@@ -1,0 +1,11 @@
+# Ignore model files
+*.pt
+*.tflite
+
+# Ignore other files
+.DS_Store
+
+# Ignore folders
+/test
+/train
+/valid
