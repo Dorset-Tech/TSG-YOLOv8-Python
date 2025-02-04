@@ -1,12 +1,17 @@
 # Ignore model files
 *.pt
 *.tflite
+*.onnx
+*.txt
+*.npy
 
 # Ignore other files
 .DS_Store
+data.yaml
 
 # Ignore folders
 /test
 /train
 /valid
 /runs
+/best_saved_model
