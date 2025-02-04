@@ -40,6 +40,12 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
      [README.roboflow.txt]
      [tfliteconvert.py]
      ```
+   - Check and update the file data.yaml
+      ```
+      train: train/images
+      val: valid/images
+      test: test/images
+      ```
 
 3. **Check and Change the Value of Epochs**:
    - Open [`execute.py`](execute.py) and modify the `epochs` parameter in the `model.train` function. The recommended number is 300 and above.
