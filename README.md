@@ -15,7 +15,7 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
    - Download and install Python 3.11.0 from the link above.
 
 2. **Download Project and Extract the Data**:
-   - Download the dataset from [Roboflow](https://universe.roboflow.com/cricket-rfyd8/cricket-balls-l1us5).
+   - Download the dataset from [Roboflow](https://universe.roboflow.com/cric/cricket-ball-detection-ns4rc/dataset/1).
    - Extract the data to match the following folder structure:
      ```
      test/
