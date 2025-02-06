@@ -83,3 +83,9 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
 
 - Ensure that you have a compatible GPU and CUDA installed to speed up the training process.
 - The training process may take a significant amount of time depending on the number of epochs and the size of the dataset.
+
+
+Best Trained models
+ - https://universe.roboflow.com/uopcrictrakcr/cricket-ball-tracker
+ - https://universe.roboflow.com/cricket-ball-tracking-dataset/cricket-dataset-z2wkt
+
