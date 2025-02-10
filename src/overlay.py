@@ -1,44 +1,15 @@
-import os
-import sys
-import warnings
-from optparse import OptionParser
-from services.get_pitch_frames import get_pitch_frames
-from services.generate_overlay import generate_overlay
-from services.config import DEFAULT_VIDEOS_FOLDER, outputPath
-from services.utils import NoFramesException
+from src.services.get_pitch_frames import get_pitch_frames
+from src.services.generate_overlay import generate_overlay
+from src.services.config import outputPath
+from src.services.utils import NoFramesException
 
-# Ignore warnings
-if not sys.warnoptions:
-    warnings.simplefilter("ignore")
-
-if __name__ == "__main__":
-    optparser = OptionParser()
-    optparser.add_option(
-        "-f",
-        "--videos_folder",
-        dest="rootDir",
-        help="Root directory that contains your pitching videos",
-        default=DEFAULT_VIDEOS_FOLDER,
-    )
-    (options, args) = optparser.parse_args()
-
-    # Store the pitch frames and ball location of each video
-    pitch_frames = []
-
-    # Iterate all videos in the folder
-    for idx, path in enumerate(sorted(os.listdir(options.rootDir))):
-        if not path.endswith(".mp4"):
-            continue
-
-        video_path = options.rootDir + "/" + path
-        try:
-            ball_frames, width, height, fps = get_pitch_frames(video_path)
-            pitch_frames.append(ball_frames)
-        except NoFramesException as e:
-            print(
-                f"Error: Sorry we could not get enough baseball detection from the video, video {path} will not be overlayed"
-            )  # raise e
-
-    print("Pitch frames len: ", len(pitch_frames))
-    if len(pitch_frames):
+def overlay(file_path):
+    try:
+        ball_frames, width, height, fps = get_pitch_frames(file_path)
+        pitch_frames = [ball_frames]
         generate_overlay(pitch_frames, width, height, fps, outputPath)
+        print("Video overlayed successfully")
+    except NoFramesException as e:
+        print(
+            f"Error: Sorry we could not get enough baseball detection from the video, video {file_path} will not be overlayed"
+        )  # raise e

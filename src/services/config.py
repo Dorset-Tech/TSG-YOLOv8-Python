@@ -16,10 +16,10 @@ score_threshold = 0.5
 
 # SORT config
 tracker_min_hits = 4
-tracker_iou_threshold = 0.2
+tracker_iou_threshold = 0.1
 max_age = 14
 
-distance_threshold = 120
+distance_threshold = 100
 
 outputFolder = "src/predictions/"
 f = f"{datetime.today().strftime('%H%M')}_"
@@ -30,12 +30,12 @@ outputPath = outputFolder + (
 )
 
 # Overlay config
-fps_percentage = .20  # 1 = full fps, 0.5 = half
-base_frame_weight = 0.3  # orig 0.55
+fps_percentage = .95  # 1 = full fps, 0.5 = half
+base_frame_weight = 0.55  # orig 0.55
 
 ball_size = 10  # TODO count from bbox heights
 line_thickness = round(2 * ball_size)
-trajectory_weight = 0.7  # orig 0.7
+trajectory_weight = 0.7  # orig 0.7 # line opacity
 
-before_frames = 10
-after_frames = 50
+before_frames = 20
+after_frames = 100

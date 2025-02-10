@@ -15,4 +15,6 @@ data.yaml
 /valid
 /runs
 /best_saved_model
+/src/videos
+/src/predictions
 __pycache__

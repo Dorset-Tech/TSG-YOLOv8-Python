@@ -1,8 +1,8 @@
 import cv2
 import numpy as np
 from image_registration import cross_correlation_shifts
-from services.draw_ball import draw_ball_curve
-from services.config import fps_percentage, base_frame_weight
+from src.services.draw_ball import draw_ball_curve
+from src.services.config import fps_percentage, base_frame_weight
 
 
 def generate_overlay(video_frames, width, height, fps, outputPath):

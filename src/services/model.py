@@ -1,5 +1,5 @@
 from ultralytics import YOLO
-from services.config import modelPath
+from src.services.config import modelPath
 
 # Load a model
 model = YOLO(

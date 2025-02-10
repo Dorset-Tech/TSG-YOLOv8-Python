@@ -1,9 +1,9 @@
 import cv2
 import copy
 import numpy as np
-from services.FrameInfo import FrameInfo
-from services.Laatu import Laatu
-from services.config import ball_size, line_thickness, trajectory_weight
+from src.services.FrameInfo import FrameInfo
+from src.services.Laatu import Laatu
+from src.services.config import ball_size, line_thickness, trajectory_weight
 
 
 def draw_ball_curve(frame, trajectory):
@@ -50,7 +50,7 @@ def draw_ball_curve(frame, trajectory):
             highest[1] if isinstance(highest[1], int) else int(highest[1].item()),
         )
 
-        cv2.circle(frame, highest_ball, ball_size, ball_color, -1, lineType=cv2.LINE_AA)
+        cv2.circle(frame, highest_ball, ball_size, ball_color, -1, lineType=cv2.LINE_4)
         cv2.circle(
             frame, highest_ball, ball_size, (0, 0, 0), 1, lineType=cv2.LINE_AA
         )  # Outline

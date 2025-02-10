@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
-from services.model import model
-from services.config import PADDING, iou_threshold, score_threshold
+from src.services.model import model
+from src.services.config import PADDING, iou_threshold, score_threshold
 
 
 def get_detections_in_format(boxes, detected_balls):

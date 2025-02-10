@@ -1,4 +1,4 @@
-from services.Laatu import Laatu
+from src.services.Laatu import Laatu
 
 
 class FrameInfo:

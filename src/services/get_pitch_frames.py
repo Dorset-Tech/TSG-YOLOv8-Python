@@ -1,14 +1,14 @@
 import copy
 import cv2
 import numpy as np
-from services.FrameInfo import FrameInfo
-from services.Laatu import Laatu
-from services.utils import distance, fill_lost_tracking, get_laatu
-from sort_tracker.sort import Sort
-from colors.colors import track_colors
-from services.detect_ball import get_detections_in_format
-from services.model import model
-from services.config import (
+from src.services.FrameInfo import FrameInfo
+from src.services.Laatu import Laatu
+from src.services.utils import distance, fill_lost_tracking, get_laatu
+from src.sort_tracker.sort import Sort
+from src.colors.colors import track_colors
+from src.services.detect_ball import get_detections_in_format
+from src.services.model import model
+from src.services.config import (
     max_age,
     tracker_min_hits,
     tracker_iou_threshold,
@@ -64,7 +64,7 @@ def get_pitch_frames(video_path):
         for t in trackings:
             t = [int(i) for i in t]
 
-            color = track_colors[t[4] % 12]
+            color = track_colors[0]
             centerX = int((t[0] + t[2]) / 2)
             centerY = int((t[1] + t[3]) / 2)
             tracked_balls.append([centerX, centerY, color])
