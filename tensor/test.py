@@ -42,7 +42,7 @@ def process_video(video_path):
     cv2.destroyAllWindows()
 
 # Path to the video file
-video_path = 'videos/testclips.mp4'
+video_path = 'videos/1.mp4'
 
 # Process the video
 process_video(video_path)

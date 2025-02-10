@@ -15,3 +15,4 @@ data.yaml
 /valid
 /runs
 /best_saved_model
+__pycache__
