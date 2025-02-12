@@ -74,7 +74,7 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
             background_frame = draw_ball_curve(background_frame, trajectory)
 
         out.write(background_frame)
-        if cv2.waitKey(60) & 0xFF == ord("q"):
+        if cv2.waitKey(120) & 0xFF == ord("q"):
             break
 
 

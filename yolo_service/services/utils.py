@@ -1,3 +1,5 @@
+import warnings
+
 import numpy as np
 
 from yolo_service.services.Laatu import Laatu
@@ -8,7 +10,7 @@ class NoFramesException(Exception):
 
 
 def fill_lost_tracking(frame_list):
-    print(frame_list)
+    # print(frame_list)
     if len(frame_list) < 1:
         raise NoFramesException("No frames")
 
@@ -18,8 +20,12 @@ def fill_lost_tracking(frame_list):
     balls_x = [b if isinstance(b, int) else b.cpu() for b in balls_x]
     balls_y = [b if isinstance(b, int) else b.cpu() for b in balls_y]
 
-    # Get the polynomial equation
-    curve = np.polyfit(balls_x, balls_y, 2)
+    # Suppress RankWarning
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", np.RankWarning)
+        # Get the polynomial equation
+        curve = np.polyfit(balls_x, balls_y, 2)
+
     poly = np.poly1d(curve)
 
     lost_sections = []
@@ -52,6 +58,10 @@ def fill_lost_tracking(frame_list):
             # Speed is the x difference for each frame
             diff = last_frame.ball[0] - prev_frame.ball[0]
             speed = int(diff / (len(lost_idx) + 1))
+
+            print("==================================================")
+            print("Speed", speed)
+            print("==================================================")
 
             for idx, frame in enumerate(lost_idx):
                 x = prev_frame.ball[0] + (speed * (idx + 1))

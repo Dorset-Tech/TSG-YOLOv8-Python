@@ -25,9 +25,10 @@ from yolo_service.sort_tracker.sort import Sort
 
 # Get the pitching section in the whole video
 def get_pitch_frames(video_path):
-    print("Video from: ", video_path)
+    # print("Video from: ", video_path)
     vid = cv2.VideoCapture(video_path)
-    laatu = get_laatu(video_path)
+    # laatu = get_laatu(video_path)
+    laatu = Laatu.OIKEA
 
     width = int(vid.get(cv2.CAP_PROP_FRAME_WIDTH))
     height = int(vid.get(cv2.CAP_PROP_FRAME_HEIGHT))
@@ -120,9 +121,11 @@ def add_balls_before_SORT(frames, detected, tracked, laatu: Laatu):
     for idx, frame in enumerate(modify_frames):
         if idx >= len(balls_to_add_temp):
             break
-        frames[-((tracker_min_hits + 1) - idx)] = FrameInfo(
-            frame.frame, True, tuple(balls_to_add_temp[idx]), color, laatu=laatu
-        )
+        frame_index = -((tracker_min_hits + 1) - idx)
+        if abs(frame_index) <= len(frames):
+            frames[frame_index] = FrameInfo(
+                frame.frame, True, tuple(balls_to_add_temp[idx]), color, laatu=laatu
+            )
 
 
 def add_lost_frames(frame_id, last_tracked_frame, frames, pitch_frames):

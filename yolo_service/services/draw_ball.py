@@ -24,14 +24,22 @@ def draw_ball_curve(frame, trajectory):
             for ball in ball_points
         ]
         ball_points = np.array(ball_points, dtype="int32")
-        cv2.polylines(
-            temp_frame,
-            [ball_points],
-            False,
-            traj_color,
-            line_thickness,
-            lineType=cv2.LINE_AA,
-        )
+        # Draw the polyline with dynamic line thickness
+        for i in range(1, len(ball_points)):
+            start_point = tuple(ball_points[i - 1])
+            end_point = tuple(ball_points[i])
+            # Calculate the current thickness as a percentage of the initial value
+            current_thickness = max(
+                int(line_thickness * (1 - (i / len(ball_points)))), 5
+            )
+            cv2.line(
+                temp_frame,
+                start_point,
+                end_point,
+                traj_color,
+                current_thickness,
+                lineType=cv2.LINE_AA,
+            )
         frame = cv2.addWeighted(
             temp_frame, trajectory_weight, frame, 1 - trajectory_weight, 0
         )
@@ -56,7 +64,7 @@ def draw_ball_curve(frame, trajectory):
             highest[1] if isinstance(highest[1], int) else int(highest[1].item()),
         )
 
-        cv2.circle(frame, highest_ball, ball_size, ball_color, -1, lineType=cv2.LINE_4)
+        cv2.circle(frame, highest_ball, ball_size, ball_color, -1, lineType=cv2.LINE_AA)
         cv2.circle(
             frame, highest_ball, ball_size, (0, 0, 0), 1, lineType=cv2.LINE_AA
         )  # Outline
@@ -68,9 +76,9 @@ def draw_ball_curve(frame, trajectory):
 
 def get_ball_color(laatu: Laatu):  # -> tuple[int,int,int]:
     if laatu == Laatu.VÄÄRÄ:
-        return (0, 0, 255)
+        return (255, 255, 255)
     elif laatu == Laatu.OIKEA:
-        return (102, 255, 0)
+        return (255, 255, 255)
     # elif laatu == Laatu.LYÖTY:
     # elif laatu == Laatu.TOLPPA:
     # elif laatu == Laatu.PUOLIKAS:

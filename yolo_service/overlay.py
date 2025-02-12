@@ -8,7 +8,12 @@ def overlay(file_path):
     try:
         ball_frames, width, height, fps = get_pitch_frames(file_path)
         pitch_frames = [ball_frames]
-        generate_overlay(pitch_frames, width, height, fps, outputPath)
+
+        if len(pitch_frames):
+            generate_overlay(pitch_frames, width, height, fps, outputPath)
+        else:
+            raise NoFramesException("No frames")
+
         print("Video overlayed successfully")
     except NoFramesException as e:
         print(
