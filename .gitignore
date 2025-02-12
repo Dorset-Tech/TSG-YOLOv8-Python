@@ -9,12 +9,16 @@
 .DS_Store
 data.yaml
 
+# secrets
+*.env
+
 # Ignore folders
 /test
 /train
 /valid
 /runs
 /best_saved_model
-/src/videos
-/src/predictions
+/yolo_service/videos
+/yolo_service/predictions
+/best_300_saved_model
 __pycache__

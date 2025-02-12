@@ -1,7 +1,8 @@
 import cv2
 import numpy as np
-from src.services.model import model
-from src.services.config import PADDING, iou_threshold, score_threshold
+
+from yolo_service.services.config import PADDING, iou_threshold, score_threshold
+from yolo_service.services.model import model
 
 
 def get_detections_in_format(boxes, detected_balls):

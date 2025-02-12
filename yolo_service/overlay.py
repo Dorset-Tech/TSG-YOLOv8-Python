@@ -1,7 +1,8 @@
-from src.services.get_pitch_frames import get_pitch_frames
-from src.services.generate_overlay import generate_overlay
-from src.services.config import outputPath
-from src.services.utils import NoFramesException
+from yolo_service.services.config import outputPath
+from yolo_service.services.generate_overlay import generate_overlay
+from yolo_service.services.get_pitch_frames import get_pitch_frames
+from yolo_service.services.utils import NoFramesException
+
 
 def overlay(file_path):
     try:

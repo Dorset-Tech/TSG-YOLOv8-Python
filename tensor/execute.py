@@ -17,7 +17,7 @@ def main():
     model = YOLO("yolov8n.yaml")
 
     # Train the model
-    model.train(data="data.yaml", epochs=10, device=device)
+    model.train(data="data.yaml", epochs=300, device=device)
 
 if __name__ == "__main__":
     main()

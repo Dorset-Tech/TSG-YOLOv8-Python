@@ -1,5 +1,6 @@
 import numpy as np
-from src.services.Laatu import Laatu
+
+from yolo_service.services.Laatu import Laatu
 
 
 class NoFramesException(Exception):

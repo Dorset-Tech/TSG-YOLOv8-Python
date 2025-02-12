@@ -1,9 +1,11 @@
-import cv2
 import copy
+
+import cv2
 import numpy as np
-from src.services.FrameInfo import FrameInfo
-from src.services.Laatu import Laatu
-from src.services.config import ball_size, line_thickness, trajectory_weight
+
+from yolo_service.services.config import ball_size, line_thickness, trajectory_weight
+from yolo_service.services.FrameInfo import FrameInfo
+from yolo_service.services.Laatu import Laatu
 
 
 def draw_ball_curve(frame, trajectory):
@@ -37,12 +39,16 @@ def draw_ball_curve(frame, trajectory):
         last_frame = trajectory[-1]
         ball_color = get_ball_color(last_frame[3])
         last_ball = (
-            last_frame[0]
-            if isinstance(last_frame[0], int)
-            else int(last_frame[0].item()),
-            last_frame[1]
-            if isinstance(last_frame[1], int)
-            else int(last_frame[1].item()),
+            (
+                last_frame[0]
+                if isinstance(last_frame[0], int)
+                else int(last_frame[0].item())
+            ),
+            (
+                last_frame[1]
+                if isinstance(last_frame[1], int)
+                else int(last_frame[1].item())
+            ),
         )
 
         highest_ball = (

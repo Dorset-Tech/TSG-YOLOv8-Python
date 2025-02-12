@@ -1,24 +1,26 @@
 import copy
+
 import cv2
 import numpy as np
-from src.services.FrameInfo import FrameInfo
-from src.services.Laatu import Laatu
-from src.services.utils import distance, fill_lost_tracking, get_laatu
-from src.sort_tracker.sort import Sort
-from src.colors.colors import track_colors
-from src.services.detect_ball import get_detections_in_format
-from src.services.model import model
-from src.services.config import (
-    max_age,
-    tracker_min_hits,
-    tracker_iou_threshold,
-    before_frames,
-    after_frames,
-    score_threshold,
-    iou_threshold,
+
+from yolo_service.colors.colors import track_colors
+from yolo_service.services.config import (
     PADDING,
+    after_frames,
+    before_frames,
     distance_threshold,
+    iou_threshold,
+    max_age,
+    score_threshold,
+    tracker_iou_threshold,
+    tracker_min_hits,
 )
+from yolo_service.services.detect_ball import get_detections_in_format
+from yolo_service.services.FrameInfo import FrameInfo
+from yolo_service.services.Laatu import Laatu
+from yolo_service.services.model import model
+from yolo_service.services.utils import distance, fill_lost_tracking, get_laatu
+from yolo_service.sort_tracker.sort import Sort
 
 
 # Get the pitching section in the whole video
@@ -59,7 +61,7 @@ def get_pitch_frames(video_path):
 
         # Feed in detections to obtain SORT tracking
         trackings = tracker.update(get_detections_in_format(res.boxes, detected_balls))
-        
+
         # Add the valid trackings to balls_list
         for t in trackings:
             t = [int(i) for i in t]

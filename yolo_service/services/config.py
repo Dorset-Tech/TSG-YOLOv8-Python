@@ -2,11 +2,11 @@ from datetime import datetime
 
 # Basic conf
 # DEFAULT_VIDEOS_FOLDER = "./videos/lot"
-VIDEOS_ROOT = "src/videos/"
+VIDEOS_ROOT = "yolo_service/videos/"
 DEFAULT_VIDEOS_FOLDER = VIDEOS_ROOT
 
 modelPath = (
-    "src/models/best.pt"
+    "yolo_service/models/best_300.pt"
     # "runs/detect/train/weights/epoch24.pt"
 )
 # Detect config
@@ -21,7 +21,7 @@ max_age = 14
 
 distance_threshold = 100
 
-outputFolder = "src/predictions/"
+outputFolder = "yolo_service/predictions/"
 f = f"{datetime.today().strftime('%H%M')}_"
 e = f".mp4"
 outputPath = outputFolder + (
@@ -30,7 +30,7 @@ outputPath = outputFolder + (
 )
 
 # Overlay config
-fps_percentage = .95  # 1 = full fps, 0.5 = half
+fps_percentage = 0.95  # 1 = full fps, 0.5 = half
 base_frame_weight = 0.55  # orig 0.55
 
 ball_size = 10  # TODO count from bbox heights

@@ -1,8 +1,9 @@
 import cv2
 import numpy as np
 from image_registration import cross_correlation_shifts
-from src.services.draw_ball import draw_ball_curve
-from src.services.config import fps_percentage, base_frame_weight
+
+from yolo_service.services.config import base_frame_weight, fps_percentage
+from yolo_service.services.draw_ball import draw_ball_curve
 
 
 def generate_overlay(video_frames, width, height, fps, outputPath):
