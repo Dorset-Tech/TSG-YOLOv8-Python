@@ -59,10 +59,6 @@ def fill_lost_tracking(frame_list):
             diff = last_frame.ball[0] - prev_frame.ball[0]
             speed = int(diff / (len(lost_idx) + 1))
 
-            print("==================================================")
-            print("Speed", speed)
-            print("==================================================")
-
             for idx, frame in enumerate(lost_idx):
                 x = prev_frame.ball[0] + (speed * (idx + 1))
                 x = x if isinstance(x, int) else x.cpu()

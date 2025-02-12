@@ -20,6 +20,9 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
     balls_in_curves = [[] for i in range(len(frame_lists))]
     shifts = {}
 
+    # Assume the distance of 8 meters is represented by the width of the video
+    pixel_to_meter = 22 / width
+
     # Take the longest frames as background
     for idx, base_frame in enumerate(frame_lists[0]):
         # Overlay frames
@@ -77,6 +80,17 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
         if cv2.waitKey(120) & 0xFF == ord("q"):
             break
 
+        # Calculate and print ball speeds
+    for trajectory in balls_in_curves:
+        ball_positions = [(point[0], point[1]) for point in trajectory]
+        speeds, average_speed = calculate_speed(ball_positions, fps, pixel_to_meter)
+        for i, speed in enumerate(speeds):
+            print(f"Speed between frame {i} and {i+1}: {speed:.2f} km/h")
+        print(f"Average speed: {average_speed:.2f} km/h")
+
+    out.release()
+    print("Overlay generation complete")
+
 
 def image_registration(ref_image, offset_image, shifts, list_idx, width, height):
     # The shift is calculated once for each video and stored
@@ -95,3 +109,92 @@ def image_registration(ref_image, offset_image, shifts, list_idx, width, height)
     corrected_image = cv2.warpAffine(offset_image.frame, matrix, (width, height))
 
     return corrected_image
+
+
+def calculate_speed(ball_positions, fps, pixel_to_meter):
+    speeds = []
+    for i in range(1, len(ball_positions)):
+        x1, y1 = ball_positions[i - 1]
+        x2, y2 = ball_positions[i]
+
+        # Ensure the coordinates are on the CPU and converted to NumPy
+        if not isinstance(x1, int):
+            x1 = x1.cpu().item()
+        if not isinstance(y1, int):
+            y1 = y1.cpu().item()
+        if not isinstance(x2, int):
+            x2 = x2.cpu().item()
+        if not isinstance(y2, int):
+            y2 = y2.cpu().item()
+
+        distance_pixels = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        distance_meters = distance_pixels * pixel_to_meter
+        speed_mps = distance_meters * fps  # meters per second
+        speed_kph = speed_mps * 3.6  # convert to kilometers per hour
+        speeds.append(speed_kph)
+
+    average_speed = np.mean(speeds) if speeds else 0
+    return speeds, average_speed
+
+
+def calculate_speed(ball_positions, fps, pixel_to_meter):
+    speeds = []
+    for i in range(1, len(ball_positions)):
+        x1, y1 = ball_positions[i - 1]
+        x2, y2 = ball_positions[i]
+
+        # Ensure the coordinates are on the CPU and converted to NumPy
+        if not isinstance(x1, int):
+            x1 = x1.cpu().item()
+        if not isinstance(y1, int):
+            y1 = y1.cpu().item()
+        if not isinstance(x2, int):
+            x2 = x2.cpu().item()
+        if not isinstance(y2, int):
+            y2 = y2.cpu().item()
+
+        distance_pixels = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+        distance_meters = distance_pixels * pixel_to_meter
+        speed_mps = distance_meters * fps  # meters per second
+        speed_kph = speed_mps * 3.6  # convert to kilometers per hour
+        speeds.append(speed_kph)
+
+    average_speed = np.mean(speeds) if speeds else 0
+    return speeds, average_speed
+
+
+# Average of the highest Y-axis peak
+# def calculate_speed(ball_positions, fps, pixel_to_meter):
+#     speeds = []
+#     highest_y_index = 0
+#     highest_y = float("inf")
+
+#     # Find the highest peak of the Y-axis
+#     for i, (x, y) in enumerate(ball_positions):
+#         if y < highest_y:
+#             highest_y = y
+#             highest_y_index = i
+
+#     # Calculate speeds starting from the highest peak
+#     for i in range(highest_y_index + 1, len(ball_positions)):
+#         x1, y1 = ball_positions[i - 1]
+#         x2, y2 = ball_positions[i]
+
+#         # Ensure the coordinates are on the CPU and converted to NumPy
+#         if not isinstance(x1, int):
+#             x1 = x1.cpu().item()
+#         if not isinstance(y1, int):
+#             y1 = y1.cpu().item()
+#         if not isinstance(x2, int):
+#             x2 = x2.cpu().item()
+#         if not isinstance(y2, int):
+#             y2 = y2.cpu().item()
+
+#         distance_pixels = np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+#         distance_meters = distance_pixels * pixel_to_meter
+#         speed_mps = distance_meters * fps  # meters per second
+#         speed_kph = speed_mps * 3.6  # convert to kilometers per hour
+#         speeds.append(speed_kph)
+
+#     average_speed = np.mean(speeds) if speeds else 0
+#     return speeds, average_speed
