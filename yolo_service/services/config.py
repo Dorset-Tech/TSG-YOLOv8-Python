@@ -25,10 +25,6 @@ distance_threshold = 100
 outputFolder = "yolo_service/predictions/"
 f = f"{datetime.today().strftime('%H%M')}_"
 e = f".mp4"
-outputPath = outputFolder + (
-    ## spacing
-    f"{f}{PADDING}_{iou_threshold}_{score_threshold}_{tracker_min_hits}_{tracker_iou_threshold}_{max_age}{e}"
-)
 
 # Overlay config
 fps_percentage = 1  # 1 = full fps, 0.5 = half

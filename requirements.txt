@@ -4,5 +4,7 @@ filterpy
 image-registration
 numpy==1.20.0
 scikit-image
+flask
+
 
 ultralytics

@@ -80,16 +80,18 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
         if cv2.waitKey(120) & 0xFF == ord("q"):
             break
 
-        # Calculate and print ball speeds
+    # Calculate and print ball speeds
+    average_speeds = []
     for trajectory in balls_in_curves:
         ball_positions = [(point[0], point[1]) for point in trajectory]
         speeds, average_speed = calculate_speed(ball_positions, fps, pixel_to_meter)
         for i, speed in enumerate(speeds):
             print(f"Speed between frame {i} and {i+1}: {speed:.2f} km/h")
-        print(f"Average speed: {average_speed:.2f} km/h")
+        average_speeds.append(average_speed)
 
     out.release()
     print("Overlay generation complete")
+    return f"{average_speeds[0]:.2f} km/h" if average_speeds else "0.00 km/h"
 
 
 def image_registration(ref_image, offset_image, shifts, list_idx, width, height):
