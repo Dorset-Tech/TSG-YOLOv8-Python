@@ -11,7 +11,7 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
 
     out = cv2.VideoWriter(
         outputPath,
-        cv2.VideoWriter_fourcc(*"mp4v"),
+        cv2.VideoWriter_fourcc(*"H264"),
         fps * fps_percentage,
         (width, height),
     )

@@ -22,7 +22,7 @@ max_age = 20
 
 distance_threshold = 100
 
-outputFolder = "yolo_service/predictions/"
+outputFolder = "public/videos/predictions/"
 f = f"{datetime.today().strftime('%H%M')}_"
 e = f".mp4"
 

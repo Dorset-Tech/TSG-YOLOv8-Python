@@ -33,37 +33,15 @@ class OverlayController:
 
             # Create the custom file name
             custom_file_name = f"{user_id}_{unique_id}_{time_now}.{file_extension}"
-            custom_raw_file_path = f"{user_id}/{RAW}/{custom_file_name}"
 
-            # save the file temporarily
-            file_path = self.file_service.save_file(file)
+            # save the raw file
+            file_path = self.file_service.save_file(file, custom_file_name)
 
-            # Upload to Supabase
-            self.supabase_service.upload_video(file_path, custom_raw_file_path)
+            # Overlay the video
+            # And get the average speed
+            average_speed = overlay(file_path, custom_file_name)
 
-            average_speed = overlay(file_path, file.filename)
-
-            overlayed_file_path = outputFolder + file.filename
-
-            custom_overlayed_file_path = f"{user_id}/{OVERLAYED}/{custom_file_name}"
-
-            self.supabase_service.upload_video(
-                overlayed_file_path, custom_overlayed_file_path
-            )
-
-            # # Delete the raw file
-            self.file_service.delete_file(file_path)
-            # # Delete the overlayed file
-            self.file_service.delete_file(overlayed_file_path)
-
-            public_raw_url = self.supabase_service.get_public_url(
-                custom_raw_file_path,
-            )
-            public_overlayed_url = self.supabase_service.get_public_url(
-                custom_overlayed_file_path,
-            )
-
-            return public_raw_url, public_overlayed_url, average_speed
+            return file_path, (outputFolder + custom_file_name), average_speed
 
 
 # Create an instance of the controller

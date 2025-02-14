@@ -22,3 +22,6 @@ data.yaml
 /yolo_service/predictions
 /best_300_saved_model
 __pycache__
+
+# Public path
+/public

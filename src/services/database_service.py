@@ -23,7 +23,7 @@ class DatabaseService:
             "user_id": user_id,
             "public_raw_url": public_raw_url,
             "public_overlayed_url": public_overlayed_url,
-            "average_speed": average_speed,
+            "speed": average_speed,
             "created_at": created_at,
         }
         response = self.supabase.table("ball_session").insert(data).execute()

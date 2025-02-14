@@ -6,6 +6,7 @@ from typing import Any, Dict
 from flask import jsonify, request
 
 from src.common.constants import RAW
+from src.common.responses import standard_response
 from src.services.database_service import DatabaseService
 from src.services.supabase_service import SupabaseService
 
@@ -18,11 +19,11 @@ class SupabaseController:
     def upload_video(self, user_id: str) -> Dict[str, Any]:
         if request.method == "POST":
             if "file" not in request.files:
-                return jsonify({"error": "No file part"})
+                return standard_response(False, "No file part")
 
             file = request.files["file"]
             if file.filename == "":
-                return jsonify({"error": "No selected file"})
+                return standard_response(False, "No selected file")
 
             unique_id = uuid.uuid4().hex[:8]  # Generate a random unique identifier
             time_now = datetime.now().strftime("%Y%m%d%H%M%S")  # Current timestamp
@@ -33,12 +34,12 @@ class SupabaseController:
             file.save(file_path)
 
             response = self.supabase_service.upload_video(file_path, "1")
-            return jsonify(response)
+            return standard_response(True, "File uploaded successfully", response)
 
     def get_all_videos(self, user_id: str) -> Dict[str, Any]:
         if request.method == "GET":
             videos = self.supabase_service.get_all_videos(user_id)
-            return jsonify(videos)
+            return standard_response(True, "Videos retrieved successfully", videos)
 
     def insert_ball_session(
         self,
@@ -53,15 +54,14 @@ class SupabaseController:
             public_overlayed_url,
             average_speed,
         )
-        return jsonify(
+        return standard_response(
+            True,
+            "Successfully inserted the ball session",
             {
-                "message": "Successfully inserted the ball session",
-                "data": {
-                    "user_id": user_id,
-                    "public_raw_url": public_raw_url,
-                    "public_overlayed_url": public_overlayed_url,
-                },
-            }
+                "user_id": user_id,
+                "public_raw_url": public_raw_url,
+                "public_overlayed_url": public_overlayed_url,
+            },
         )
 
 
