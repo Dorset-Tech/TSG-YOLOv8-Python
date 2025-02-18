@@ -21,6 +21,7 @@ data.yaml
 /yolo_service/videos
 /yolo_service/predictions
 /best_300_saved_model
+/tsg
 __pycache__
 
 # Public path

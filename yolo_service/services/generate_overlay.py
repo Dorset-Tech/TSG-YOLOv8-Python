@@ -20,7 +20,7 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
     balls_in_curves = [[] for i in range(len(frame_lists))]
     shifts = {}
 
-    # Assume the distance of 8 meters is represented by the width of the video
+    # Assume the distance of 22 meters is represented by the width of the video
     pixel_to_meter = 22 / width
 
     # Take the longest frames as background

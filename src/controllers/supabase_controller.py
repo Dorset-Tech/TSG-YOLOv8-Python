@@ -47,12 +47,14 @@ class SupabaseController:
         public_raw_url: str,
         public_overlayed_url: str,
         average_speed: str,
+        public_thumbnail_url: str,
     ) -> Dict[str, Any]:
         self.database_service.insert_ball_session(
             user_id,
             public_raw_url,
             public_overlayed_url,
             average_speed,
+            public_thumbnail_url,
         )
         return standard_response(
             True,
@@ -61,6 +63,8 @@ class SupabaseController:
                 "user_id": user_id,
                 "public_raw_url": public_raw_url,
                 "public_overlayed_url": public_overlayed_url,
+                "average_speed": average_speed,
+                "public_thumbnail_url": public_thumbnail_url,
             },
         )
 

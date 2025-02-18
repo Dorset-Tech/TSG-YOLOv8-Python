@@ -7,9 +7,13 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
 - **Python Version**: 3.11.0
   - Download here: [Python 3.11.0](https://www.python.org/downloads/release/python-3110/)
   - Note: Do not install the latest version as it does not support TensorFlow yet.
-- **CUDA**: Make use of GPU to run the Python code.
+- **CUDA**: 11.8
+  - Download here: [CUDA 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
+  -  ```
+      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+      ```
 
-## Steps
+## Training Model Steps
 
 1. **Install the required Python version**:
    - Download and install Python 3.11.0 from the link above.
@@ -89,3 +93,23 @@ Best Trained models
  - https://universe.roboflow.com/uopcrictrakcr/cricket-ball-tracker
  - https://universe.roboflow.com/cricket-ball-tracking-dataset/cricket-dataset-z2wkt
 
+
+## Running as server
+
+- ```sh 
+   pip install -r requirements 
+  ```
+- ```sh
+   python main.py
+  ```
+
+## VENV
+- ```
+   python -m venv tsg
+   ```
+- Activate `.\tsg\Scripts\activate`
+
+## Install Requirements
+- ```
+   pip install -r requirements.txt
+   ```

@@ -15,14 +15,19 @@ def home():
 @routes.route("/overlay", methods=["POST"])
 def overlay_video():
     user_id = request.form.get("user_id")
-    custom_raw_file_path, custom_overlayed_file_path, average_speed = (
-        overlay_controller.overlay_video(user_id)
-    )
+    (
+        custom_raw_file_path,
+        custom_overlayed_file_path,
+        average_speed,
+        thumbnail_path,
+    ) = overlay_controller.overlay_video(user_id)
+
     return supabase_controller.insert_ball_session(
         user_id,
         custom_raw_file_path,
         custom_overlayed_file_path,
         average_speed,
+        thumbnail_path,
     )
 
 
