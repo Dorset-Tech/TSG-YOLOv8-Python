@@ -5,7 +5,6 @@ image-registration
 numpy
 scikit-image
 flask
-torch
 ultralytics
 supabase
 dotenv

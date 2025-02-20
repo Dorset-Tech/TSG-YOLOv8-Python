@@ -2,7 +2,6 @@
 *.pt
 *.tflite
 *.onnx
-*.txt
 *.npy
 
 # Ignore other files
@@ -13,14 +12,8 @@ data.yaml
 *.env
 
 # Ignore folders
-/test
-/train
-/valid
-/runs
-/best_saved_model
 /yolo_service/videos
 /yolo_service/predictions
-/best_300_saved_model
 /tsg
 __pycache__
 
