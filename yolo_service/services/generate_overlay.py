@@ -21,7 +21,7 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
     shifts = {}
 
     # Assume the distance of 22 meters is represented by the width of the video
-    pixel_to_meter = 22 / width
+    pixel_to_meter = 20.1168 / width
 
     # Take the longest frames as background
     for idx, base_frame in enumerate(frame_lists[0]):
