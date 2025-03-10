@@ -1,20 +1,12 @@
 import cv2
 import numpy as np
 from image_registration import cross_correlation_shifts
-
+import ffmpeg
 from yolo_service.services.config import base_frame_weight, fps_percentage
 from yolo_service.services.draw_ball import draw_ball_curve
 
-
 def generate_overlay(video_frames, width, height, fps, outputPath):
     print("Saving overlay result to", outputPath)
-
-    out = cv2.VideoWriter(
-        outputPath,
-        cv2.VideoWriter_fourcc(*"H264"),
-        fps * fps_percentage,
-        (width, height),
-    )
 
     frame_lists = sorted(video_frames, key=len, reverse=True)
     balls_in_curves = [[] for i in range(len(frame_lists))]
@@ -22,6 +14,9 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
 
     # Assume the distance of 22 meters is represented by the width of the video
     pixel_to_meter = 20.1168 / width
+
+    # Prepare frames for ffmpeg
+    frames = []
 
     # Take the longest frames as background
     for idx, base_frame in enumerate(frame_lists[0]):
@@ -76,9 +71,27 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
         for trajectory in balls_in_curves:
             background_frame = draw_ball_curve(background_frame, trajectory)
 
-        out.write(background_frame)
+        frames.append(background_frame)
         if cv2.waitKey(120) & 0xFF == ord("q"):
             break
+
+    # Write frames to video using ffmpeg
+    process = (
+        ffmpeg
+        .input('pipe:', format='rawvideo', pix_fmt='rgb24', s=f'{width}x{height}', r=fps * fps_percentage)
+        .output(outputPath, pix_fmt='yuv420p', vcodec='libx264', crf=18, preset='slow', color_primaries='bt709', color_trc='bt709', colorspace='bt709')
+        .overwrite_output()
+        .run_async(pipe_stdin=True)
+    )
+
+
+    for frame in frames:
+        # Convert the frame from BGR (OpenCV format) to RGB
+        rgb_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        process.stdin.write(rgb_frame.astype(np.uint8).tobytes())
+    
+    process.stdin.close()
+    process.wait()
 
     # Calculate and print ball speeds
     average_speeds = []
@@ -89,10 +102,8 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
             print(f"Speed between frame {i} and {i+1}: {speed:.2f} km/h")
         average_speeds.append(average_speed)
 
-    out.release()
     print("Overlay generation complete")
     return f"{average_speeds[0]:.2f} km/h" if average_speeds else "0.00 km/h"
-
 
 def image_registration(ref_image, offset_image, shifts, list_idx, width, height):
     # The shift is calculated once for each video and stored
