@@ -1,1 +1,7 @@
-C:/ngrok.exe http http://192.168.1.10:9999 & python main.py
+#!/bin/bash
+
+# Activate the virtual environment
+source venv/bin/activate
+
+# Run the Python script with xvfb
+xvfb-run -a python main.py
