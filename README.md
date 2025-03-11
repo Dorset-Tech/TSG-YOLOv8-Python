@@ -9,9 +9,9 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
   - Note: Do not install the latest version as it does not support TensorFlow yet.
 - **CUDA**: 11.8
   - Download here: [CUDA 11.8](https://developer.nvidia.com/cuda-11-8-0-download-archive)
-  -  ```
-      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-      ```
+  - ```
+     pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+    ```
 
 ## Running as server
 
@@ -20,12 +20,27 @@ This project trains a YOLO model to detect cricket balls using a dataset from Ro
   ```
 
 ## VENV
+
 - ```
    python -m venv tsg
-   ```
+  ```
 - Activate `.\tsg\Scripts\activate`
 
 ## Install Requirements
+
 - ```
    pip install -r requirements.txt
-   ```
+  ```
+
+## Dev server
+
+```
+cd /var/www/vhosts/balltracking.tempurl.co.uk/httpdocs
+python3 -m venv venv
+source venv/bin/activate
+export TMPDIR=/var/tmp
+pip install -r requirements.txt
+pip install httpx[http2]
+pip install python-dotenv
+xvfb-run -a python main.py
+```
