@@ -93,7 +93,7 @@ def generate_overlay(video_frames, width, height, fps, outputPath):
     process.stdin.close()
     process.wait()
 
-    # Calculate and print ball speeds
+    # Calculate and print ball speed
     average_speeds = []
     for trajectory in balls_in_curves:
         ball_positions = [(point[0], point[1]) for point in trajectory]
