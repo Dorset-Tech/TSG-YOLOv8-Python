@@ -18,7 +18,7 @@ score_threshold = 0.4
 # SORT config
 tracker_min_hits = 2
 tracker_iou_threshold = 0.1
-max_age = 20
+max_age = 14
 
 distance_threshold = 100
 
