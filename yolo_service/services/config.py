@@ -13,12 +13,12 @@ video_height = 1280  # Example value, replace with actual video height
 # PADDING = int(0.1 * video_height)  # 10% of video height
 PADDING = 100  # 10% of video height
 iou_threshold = 0.2
-score_threshold = 0.4
+score_threshold = 0.5
 
 # SORT config
 tracker_min_hits = 2
 tracker_iou_threshold = 0.1
-max_age = 14
+max_age = 20
 
 distance_threshold = 100
 
