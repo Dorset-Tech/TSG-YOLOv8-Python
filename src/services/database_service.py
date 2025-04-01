@@ -32,30 +32,38 @@ class DatabaseService:
         return response
     
     
-    # supabase table: upload_status
+    # supabase table: upload_statuses
     # columns: id, is_uploading, user_id, created_at
     def insert_or_update_upload_status(
         self,
-        id: str,
+        id: int,
         is_uploading: bool,
         user_id: str,
     ):
-        
-        # if id exists in the database, update the status
-        # else, insert a new record
-        if self.supabase.table("upload_status").select("*").eq("id", id).execute().data:
+        created_at = datetime.now().isoformat()
+
+        # If id is None, always insert a new record
+        if id is None:
+            data = {
+                "is_uploading": is_uploading,
+                "user_id": user_id,
+                "created_at": created_at,
+            }
+            return self.supabase.table("upload_statuses").insert(data).execute()
+
+        # If id exists in the database, update the status
+        # Else, insert a new record
+        if self.supabase.table("upload_statuses").select("*").eq("id", id).execute().data:
             data = {
                 "is_uploading": is_uploading,
             }
-            response = self.supabase.table("upload_status").update(data).eq("id", id).execute()
+            return self.supabase.table("upload_statuses").update(data).eq("id", id).execute()
         else:
-            created_at = datetime.now().isoformat()
             data = {
                 "id": id,
                 "is_uploading": is_uploading,
                 "user_id": user_id,
                 "created_at": created_at,
             }
-            response = self.supabase.table("upload_status").insert(data).execute()
-        return response
-    
+            return self.supabase.table("upload_statuses").insert(data).execute()
+

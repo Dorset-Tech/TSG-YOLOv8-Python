@@ -75,7 +75,7 @@ class SupabaseController:
         user_id: str,
     ) -> Dict[str, Any]:
         response = self.database_service.insert_or_update_upload_status(id, is_uploading, user_id)
-        return response
+        return response.data
 
 
 # Create an instance of the controller using environment variables

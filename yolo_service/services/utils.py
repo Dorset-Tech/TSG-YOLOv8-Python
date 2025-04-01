@@ -22,7 +22,7 @@ def fill_lost_tracking(frame_list):
 
     # Suppress RankWarning
     with warnings.catch_warnings():
-        warnings.simplefilter("ignore", np.RankWarning)
+        # warnings.simplefilter("ignore", np.RankWarning)
         # Get the polynomial equation
         curve = np.polyfit(balls_x, balls_y, 2)
 

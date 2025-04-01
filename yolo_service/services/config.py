@@ -12,11 +12,11 @@ modelPath = (
 video_height = 1280  # Example value, replace with actual video height
 # PADDING = int(0.1 * video_height)  # 10% of video height
 PADDING = 100  # 10% of video height
-iou_threshold = 0.2
+iou_threshold = 0.1
 score_threshold = 0.5
 
 # SORT config
-tracker_min_hits = 2
+tracker_min_hits = 5
 tracker_iou_threshold = 0.1
 max_age = 20
 

@@ -3,6 +3,7 @@ from flask import Blueprint, request
 from src.controllers.overlay_controller import overlay_controller
 from src.controllers.supabase_controller import supabase_controller
 from src.controllers.webhook_controller import webhook_controller
+from src.common.responses import standard_response
 
 routes = Blueprint("routes", __name__)
 
@@ -36,10 +37,23 @@ def overlay_video():
         thumbnail_path,
     )
     
-    upload_status = supabase_controller.update_upload_status(
-        request.form.get("id"),
+    print("upload_status", upload_status)
+    
+    supabase_controller.update_upload_status(
+        upload_status[0]["id"],
         False,
         request.form.get("user_id"),
+    )
+    
+    return standard_response(
+        True,
+        "Video processed successfully",
+        {
+            "custom_raw_file_path": custom_raw_file_path,
+            "custom_overlayed_file_path": custom_overlayed_file_path,
+            "average_speed": average_speed,
+            "thumbnail_path": thumbnail_path,
+        },
     )
 
 
