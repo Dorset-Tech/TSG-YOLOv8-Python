@@ -67,6 +67,15 @@ class SupabaseController:
                 "public_thumbnail_url": public_thumbnail_url,
             },
         )
+        
+    def update_upload_status(
+        self,
+        id: str,
+        is_uploading: bool,
+        user_id: str,
+    ) -> Dict[str, Any]:
+        response = self.database_service.insert_or_update_upload_status(id, is_uploading, user_id)
+        return response
 
 
 # Create an instance of the controller using environment variables

@@ -14,6 +14,12 @@ def home():
 
 @routes.route("/overlay", methods=["POST"])
 def overlay_video():
+    upload_status = supabase_controller.update_upload_status(
+        request.form.get("id"),
+        True,
+        request.form.get("user_id"),
+    )
+    
     user_id = request.form.get("user_id")
     (
         custom_raw_file_path,
@@ -22,12 +28,18 @@ def overlay_video():
         thumbnail_path,
     ) = overlay_controller.overlay_video(user_id)
 
-    return supabase_controller.insert_ball_session(
+    supabase_controller.insert_ball_session(
         user_id,
         custom_raw_file_path,
         custom_overlayed_file_path,
         average_speed,
         thumbnail_path,
+    )
+    
+    upload_status = supabase_controller.update_upload_status(
+        request.form.get("id"),
+        False,
+        request.form.get("user_id"),
     )
 
 
