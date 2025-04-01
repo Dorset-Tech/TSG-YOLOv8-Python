@@ -5,7 +5,7 @@ VIDEOS_ROOT = "yolo_service/videos/"
 DEFAULT_VIDEOS_FOLDER = VIDEOS_ROOT
 
 modelPath = (
-    "yolo_service/models/weights_0325.pt"
+    "yolo_service/models/weights.pt"
     # "runs/detect/train/weights/epoch24.pt"
 )
 # Detect config
